@@ -6,7 +6,7 @@ Minimal serving comparison between [nano-vllm](GeeeekExplorer/nano-vllm@bb823b3)
 
 ```bash
 git clone --recurse-submodules \
-  git@github.com:junuxyz/nano-vllm-bench.git
+  https://github.com/junuxyz/nano-vllm-bench.git
 
 cd nano-vllm-bench
 ```
