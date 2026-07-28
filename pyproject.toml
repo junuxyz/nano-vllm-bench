@@ -7,7 +7,7 @@ dependencies = [
     "flash-attn==2.8.3",
     "numpy==2.2.6",
     "torch==2.8.0",
-    "transformers==4.53.2",
+    "transformers==4.57.6",
     "triton==3.4.0",
     "xxhash==3.5.0",
 ]
