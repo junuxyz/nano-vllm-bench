@@ -1,19 +1,32 @@
-[build-system]
-requires = ["setuptools>=68"]
-build-backend = "setuptools.build_meta"
-
 [project]
 name = "nano-vllm-bench"
 version = "0.1.0"
 description = "Minimal benchmark harness for nano-vLLM implementations"
-requires-python = ">=3.10,<3.13"
+requires-python = "==3.11.*"
 dependencies = [
-    "flash-attn",
-    "ninja",
-    "numpy",
-    "packaging",
-    "torch>=2.4",
-    "transformers>=4.51,<5",
-    "triton>=3",
-    "xxhash",
+    "flash-attn==2.8.3",
+    "numpy==2.2.6",
+    "torch==2.8.0",
+    "transformers==4.53.2",
+    "triton==3.4.0",
+    "xxhash==3.5.0",
 ]
+
+[tool.uv]
+environments = [
+    "sys_platform == 'linux' and platform_machine == 'x86_64'",
+]
+required-environments = [
+    "sys_platform == 'linux' and platform_machine == 'x86_64'",
+]
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu128" }
+
+[[tool.uv.index]]
+name = "pytorch-cu128"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+[tool.uv.extra-build-dependencies]
+flash-attn = [{ requirement = "torch", match-runtime = true }]

@@ -1,26 +1,29 @@
 # nano-vLLM benchmark
 
-Minimal serving comparison between [nano-vllm](GeeeekExplorer/nano-vllm@bb823b3) and [nano-vllm-v1](slwang-ustc/nano-vllm-v1@357860a).
+Minimal comparison between
+[nano-vllm](https://github.com/GeeeekExplorer/nano-vllm/tree/bb823b3e06983d71485a8e1f23715ebd87d98ef8)
+and
+[nano-vllm-v1](https://github.com/slwang-ustc/nano-vllm-v1/tree/357860a688f1a9ed4b36881b5fc86144be703468).
 
-## How to run
+## Install
 
 ```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+source "$HOME/.local/bin/env"
+
 git clone --recurse-submodules \
   https://github.com/junuxyz/nano-vllm-bench.git
-
 cd nano-vllm-bench
+
+MAX_JOBS=4 uv sync
 ```
 
-```bash
-uv sync
-```
-
-### nano-vllm
+## Run
 
 ```bash
 uv run python bench.py \
   --engine nano-vllm \
-  --model "$HOME/huggingface/Qwen3-8B" \
+  --model /workspace/huggingface/Qwen3-8B \
   --num-requests 512 \
   --request-rate 1 \
   --min-input-len 128 \
@@ -29,16 +32,12 @@ uv run python bench.py \
   --max-output-len 256 \
   --max-model-len 4096 \
   --token-budget 512 \
-  --max-num-seqs 16 \
-  --output results/nano-vllm-rate1.json
-```
+  --max-num-seqs 64 \
+  --output results/nano-vllm.json
 
-### nano-vllm-v1
-
-```bash
 uv run python bench.py \
   --engine nano-vllm-v1 \
-  --model "$HOME/huggingface/Qwen3-8B" \
+  --model /workspace/huggingface/Qwen3-8B \
   --num-requests 512 \
   --request-rate 1 \
   --min-input-len 128 \
@@ -47,8 +46,8 @@ uv run python bench.py \
   --max-output-len 256 \
   --max-model-len 4096 \
   --token-budget 512 \
-  --max-num-seqs 16 \
-  --output results/nano-vllm-v1-rate1.json
+  --max-num-seqs 64 \
+  --output results/nano-vllm-v1.json
 ```
 
-Results are written to `results/<engine>.json` by default, which includes throughput and p50/p90/p99 TTFT, TPOT, and ITL.
+Results include throughput and p50/p90/p99 TTFT, TPOT, and ITL.
