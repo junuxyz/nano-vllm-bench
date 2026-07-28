@@ -1,0 +1,38 @@
+{
+  "engine": "nano-vllm-v1",
+  "model": "/workspace/huggingface/Qwen3-8B",
+  "gpu": "NVIDIA GeForce RTX 4090",
+  "seed": 0,
+  "num_requests": 256,
+  "input_length": [
+    128,
+    2048
+  ],
+  "output_length": [
+    64,
+    256
+  ],
+  "token_budget": 512,
+  "request_rate": Infinity,
+  "duration_seconds": 84.31499050557613,
+  "input_tokens": 288909,
+  "output_tokens": 40342,
+  "requests_per_second": 3.0362335151193496,
+  "output_tokens_per_second": 478.4677049490031,
+  "total_tokens_per_second": 3905.0114104943787,
+  "ttft_ms": {
+    "p50": 37800.26283673942,
+    "p90": 67803.80336381495,
+    "p99": 75172.05343991518
+  },
+  "tpot_ms": {
+    "p50": 50.09875609935257,
+    "p90": 52.20532602718289,
+    "p99": 58.31258739262253
+  },
+  "itl_ms": {
+    "p50": 42.02751815319061,
+    "p90": 63.23461979627609,
+    "p99": 64.50703740119934
+  }
+}
