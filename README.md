@@ -1,9 +1,9 @@
 # nano-vLLM benchmark
 
 Minimal comparison between
-[nano-vllm](https://github.com/GeeeekExplorer/nano-vllm/tree/bb823b3e06983d71485a8e1f23715ebd87d98ef8)
+[nano-vllm](https://github.com/GeeeekExplorer/nano-vllm)
 and
-[nano-vllm-v1](https://github.com/slwang-ustc/nano-vllm-v1/tree/357860a688f1a9ed4b36881b5fc86144be703468).
+[nano-vllm-v1](https://github.com/junuxyz/nano-vllm-v1).
 
 ## Install
 
