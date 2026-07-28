@@ -3,4 +3,4 @@
 	url = https://github.com/GeeeekExplorer/nano-vllm.git
 [submodule "engines/nano-vllm-v1"]
 	path = engines/nano-vllm-v1
-	url = https://github.com/slwang-ustc/nano-vllm-v1.git
+	url = https://github.com/junuxyz/nano-vllm-v1.git
