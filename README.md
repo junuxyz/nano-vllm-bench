@@ -18,6 +18,13 @@ cd nano-vllm-bench
 MAX_JOBS=4 uv sync
 ```
 
+Download Qwen3-8B to the persistent workspace:
+
+```bash
+uv run hf download Qwen/Qwen3-8B \
+  --local-dir /workspace/huggingface/Qwen3-8B
+```
+
 ## Run
 
 ```bash
