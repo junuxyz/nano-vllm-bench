@@ -9,6 +9,7 @@ from pathlib import Path
 
 import numpy as np
 import torch
+from tqdm.auto import tqdm
 
 
 ENGINES = ("nano-vllm", "nano-vllm-v1")
@@ -29,6 +30,7 @@ def parse_args():
     parser.add_argument("--request-rate", type=float, default=4.0)
     parser.add_argument("--seed", type=int, default=0)
     parser.add_argument("--enforce-eager", action="store_true")
+    parser.add_argument("--no-progress", action="store_true")
     parser.add_argument("--output", type=Path)
     return parser.parse_args()
 
@@ -118,7 +120,7 @@ def main():
     llm.generate(
         [warmup],
         SamplingParams(max_tokens=8, ignore_eos=True),
-        use_tqdm=False,
+        use_tqdm=not args.no_progress,
     )
 
     prompts, sampling_params = make_workload(
@@ -135,6 +137,12 @@ def main():
     records = {}
     active = {}
     next_request = 0
+    progress = tqdm(
+        total=args.num_requests,
+        desc="Processing Requests",
+        dynamic_ncols=True,
+        disable=args.no_progress,
+    )
 
     while next_request < args.num_requests or active:
         now = time.perf_counter()
@@ -174,6 +182,12 @@ def main():
                     finished.append(seq_id)
             for seq_id in finished:
                 del active[seq_id]
+            if finished:
+                progress.update(len(finished))
+                progress.set_postfix(
+                    submitted=next_request,
+                    active=len(active),
+                )
         elif next_request < args.num_requests:
             delay = (
                 started_at
@@ -184,6 +198,7 @@ def main():
                 time.sleep(min(delay, 0.001))
 
     duration = time.perf_counter() - started_at
+    progress.close()
 
     token_times = [record["token_times"] for record in records.values()]
     actual_output_tokens = sum(map(len, token_times))

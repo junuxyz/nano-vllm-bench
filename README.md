@@ -51,3 +51,4 @@ uv run python bench.py \
 ```
 
 Results include throughput and p50/p90/p99 TTFT, TPOT, and ITL.
+Pass `--no-progress` to disable the warmup and request progress bars.
